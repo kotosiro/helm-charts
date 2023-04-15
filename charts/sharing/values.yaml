@@ -1,3 +1,13 @@
+# Default values for kotosiro database.
+postgres:
+  replicaCount: 1
+  storageSize: 1G
+  proxyPort: 5432
+  password: PASSWORD
+
+
+
+
 # Default values for sharing.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.

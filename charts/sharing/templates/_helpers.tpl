@@ -60,3 +60,43 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Create the name and selector labels of sharing backend server.
+*/}}
+{{- define "sharing.server.name" -}}
+{{ include "sharing.name" . }}-server
+{{- end }}
+
+{{- define "sharing.server.fullname" -}}
+{{ include "sharing.fullname" . }}-server
+{{- end -}}
+
+{{- define "sharing.server.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "sharing.name" . }}-server
+app.kubernetes.io/instance: {{ .Release.Name }}-server
+{{- end }}
+
+{{/*
+Create the name and selector labels of sharing postgres server.
+*/}}
+{{- define "sharing.postgres.name" -}}
+{{ include "sharing.name" . }}-postgres
+{{- end }}
+
+{{- define "sharing.postgres.fullname" -}}
+{{ include "sharing.fullname" . }}-postgres
+{{- end -}}
+
+{{- define "sharing.postgres.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "sharing.name" . }}-postgres
+app.kubernetes.io/instance: {{ .Release.Name }}-postgres
+{{- end }}
+
+{{- define "sharing.postgres.secretName" -}}
+    {{- if .Values.global.postgres.existingSecret -}}
+        {{- printf "%s" .Values.global.postgres.existingSecret -}}
+    {{- else -}}
+        {{- printf "%s" (include "sharing.postgres.fullname" .) -}}
+    {{- end -}}
+{{- end -}}
