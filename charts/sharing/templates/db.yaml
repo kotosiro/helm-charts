@@ -9,7 +9,7 @@ spec:
   clusterIP: None
   ports:
     - name: db
-      port: {{ .Values.db.proxyPort }}
+      port: 5432
       targetPort: 5432
   selector: {{- include "sharing.db.selectorLabels" . | nindent 4 }}
 
@@ -21,7 +21,9 @@ metadata:
   name: {{ include "sharing.db.fullname" . }}
   labels: {{- include "sharing.labels" . | nindent 4 }}
 spec:
+  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.db.replicaCount }}
+  {{- end }}
   selector:
     matchLabels: {{- include "sharing.db.selectorLabels" . | nindent 6 }}
   serviceName: {{ include "sharing.db.fullname" . }}

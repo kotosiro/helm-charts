@@ -11,3 +11,30 @@ spec:
       port: {{ .Values.app.proxyPort }}
       targetPort: 8080
   selector: {{- include "sharing.app.selectorLabels" . | nindent 4 }}
+
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "sharing.app.fullname" . }}
+  labels: {{- include "sharing.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.app.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels: {{- include "sharing.app.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels: {{- include "sharing.app.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - name: sharing
+        image: kotosiro/sharing:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        env:
+          - name: KOTOSIRO_DB_URL
+            value: postgres://postgres:{{ .Values.db.password }}@{{ include "sharing.db.fullname" . }}:5432/sharing

@@ -4,16 +4,24 @@ serviceAccount:
   annotations: {}
   name: ""
 
+# Default values for autoscaling.
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
 # Default values for sharing application.
 app:
   type: ClusterIP
+  replicaCount: 1
   proxyPort: 8080
 
 # Default values for sharing database.
 db:
   replicaCount: 1
   storageSize: 1G
-  proxyPort: 5432
   password: PASSWORD
 
 
