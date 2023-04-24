@@ -37,4 +37,30 @@ spec:
         - containerPort: 8080
         env:
           - name: KOTOSIRO_DB_URL
-            value: postgres://postgres:{{ .Values.db.password }}@{{ include "sharing.db.fullname" . }}:5432/sharing
+            value: postgres://postgres:{{ .Values.db.password | b64enc }}@{{ include "sharing.db.fullname" . }}:5432/sharing
+          - name: KOTOSIRO_SERVER_ADDR
+            value: http://127.0.0.1:8080
+          - name: KOTOSIRO_SERVER_BIND
+            value: 0.0.0.0:8080
+          - name: KOTOSIRO_ADMIN_NAME
+            value: {{ .Values.app.adminName }}
+          - name: KOTOSIRO_ADMIN_EMAIL
+            value: {{ .Values.app.adminEmail }}
+          - name: KOTOSIRO_ADMIN_PASSWORD
+            value: {{ .Values.app.adminPassword }}
+          - name: KOTOSIRO_ADMIN_NAMESPACE
+            value: {{ .Values.app.adminNamespace }}
+          - name: KOTOSIRO_ADMIN_TTL
+            value: {{ .Values.app.adminTtl }}
+          - name: KOTOSIRO_SIGNED_URL_TTL
+            value: {{ .Values.app.signedUrlTtl }}
+          - name: KOTOSIRO_JWT_SECRET
+            value: {{ .Values.app.jwtSecret }}
+          - name: KOTOSIRO_AWS_PROFILE
+            value: {{ .Values.app.awsProfile }}
+          - name: KOTOSIRO_AWS_REGION
+            value: {{ .Values.app.awsRegion }}
+          - name: KOTOSIRO_USE_JSON_LOG
+            value: {{ .Values.app.useJsonLog }}
+          - name: KOTOSIRO_LOG_FILTER
+            value: {{ .Values.app.logFilter }}

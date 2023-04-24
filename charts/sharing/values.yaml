@@ -8,15 +8,26 @@ serviceAccount:
 autoscaling:
   enabled: false
   minReplicas: 1
-  maxReplicas: 100
+  maxReplicas: 10
   targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
 
 # Default values for sharing application.
 app:
   type: ClusterIP
   replicaCount: 1
   proxyPort: 8080
+  adminName: kotosiro
+  adminEmail: kotosiro@email.com
+  adminPassword: PASSWORD
+  adminNamespace: admin
+  adminTtl: 28800
+  signedUrlTtl: 7200
+  jwtSecret: SECRET
+  awsProfile: korosiro-sharing
+  awsRegion: ap-northeast-1
+  useJsonLog: true
+  logFilter: warn,kotosiro_sharing=info
 
 # Default values for sharing database.
 db:
@@ -87,13 +98,6 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
-
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
 
 nodeSelector: {}
 
