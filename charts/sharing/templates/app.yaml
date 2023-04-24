@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "sharing.app.fullname" . }}
+  labels: {{- include "sharing.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.app.type }}
+  ports:
+    - name: app
+      port: {{ .Values.app.proxyPort }}
+      targetPort: 8080
+  selector: {{- include "sharing.app.selectorLabels" . | nindent 4 }}

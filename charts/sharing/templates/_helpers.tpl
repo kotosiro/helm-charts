@@ -64,39 +64,39 @@ Create the name of the service account to use
 {{/*
 Create the name and selector labels of sharing backend server.
 */}}
-{{- define "sharing.server.name" -}}
-{{ include "sharing.name" . }}-server
+{{- define "sharing.app.name" -}}
+{{ include "sharing.name" . }}-app
 {{- end }}
 
-{{- define "sharing.server.fullname" -}}
-{{ include "sharing.fullname" . }}-server
+{{- define "sharing.app.fullname" -}}
+{{ include "sharing.fullname" . }}-app
 {{- end -}}
 
-{{- define "sharing.server.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "sharing.name" . }}-server
-app.kubernetes.io/instance: {{ .Release.Name }}-server
+{{- define "sharing.app.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "sharing.name" . }}-app
+app.kubernetes.io/instance: {{ .Release.Name }}-app
 {{- end }}
 
 {{/*
-Create the name and selector labels of sharing postgres server.
+Create the name and selector labels of sharing database.
 */}}
-{{- define "sharing.postgres.name" -}}
-{{ include "sharing.name" . }}-postgres
+{{- define "sharing.db.name" -}}
+{{ include "sharing.name" . }}-db
 {{- end }}
 
-{{- define "sharing.postgres.fullname" -}}
-{{ include "sharing.fullname" . }}-postgres
+{{- define "sharing.db.fullname" -}}
+{{ include "sharing.fullname" . }}-db
 {{- end -}}
 
-{{- define "sharing.postgres.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "sharing.name" . }}-postgres
-app.kubernetes.io/instance: {{ .Release.Name }}-postgres
+{{- define "sharing.db.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "sharing.name" . }}-db
+app.kubernetes.io/instance: {{ .Release.Name }}-db
 {{- end }}
 
-{{- define "sharing.postgres.secretName" -}}
-    {{- if .Values.global.postgres.existingSecret -}}
-        {{- printf "%s" .Values.global.postgres.existingSecret -}}
+{{- define "sharing.db.secretName" -}}
+    {{- if .Values.global.db.existingSecret -}}
+        {{- printf "%s" .Values.global.db.existingSecret -}}
     {{- else -}}
-        {{- printf "%s" (include "sharing.postgres.fullname" .) -}}
+        {{- printf "%s" (include "sharing.db.fullname" .) -}}
     {{- end -}}
 {{- end -}}

@@ -4,13 +4,13 @@ serviceAccount:
   annotations: {}
   name: ""
 
-# Default values for sharing server.
-server:
+# Default values for sharing application.
+app:
   type: ClusterIP
-  port: 80
+  proxyPort: 8080
 
 # Default values for sharing database.
-postgres:
+db:
   replicaCount: 1
   storageSize: 1G
   proxyPort: 5432
