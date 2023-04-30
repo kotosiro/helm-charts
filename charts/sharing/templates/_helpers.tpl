@@ -100,3 +100,16 @@ app.kubernetes.io/instance: {{ .Release.Name }}-db
         {{- printf "%s" (include "sharing.db.fullname" .) -}}
     {{- end -}}
 {{- end -}}
+
+{{/*
+Create the application endpoint URL.
+*/}}
+{{- define "sharing.server.addr" -}}
+    {{- if .Values.ingress.enabled -}}
+        {{- with (first .Values.ingress.hosts) -}}
+            http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .host }}{{ .path }}
+        {{- end -}}
+    {{- else -}}
+        http://127.0.0.1:8080
+    {{- end -}}
+{{- end }}

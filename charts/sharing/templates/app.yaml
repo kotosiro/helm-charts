@@ -5,7 +5,7 @@ metadata:
   name: {{ include "sharing.app.fullname" . }}
   labels: {{- include "sharing.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.app.type }}
+  type: ClusterIP
   ports:
     - name: app
       port: {{ .Values.app.port }}
@@ -39,7 +39,7 @@ spec:
           - name: KOTOSIRO_DB_URL
             value: postgres://postgres:{{ .Values.db.password | b64enc }}@{{ include "sharing.db.fullname" . }}:5432/sharing
           - name: KOTOSIRO_SERVER_ADDR
-            value: http://127.0.0.1:8080
+            value: {{ include "sharing.server.addr" . }}
           - name: KOTOSIRO_SERVER_BIND
             value: 0.0.0.0:8080
           - name: KOTOSIRO_ADMIN_NAME
