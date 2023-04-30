@@ -32,7 +32,8 @@ ingress:
 # Default values for sharing application.
 app:
   replicaCount: 1
-  proxyPort: 8080
+  type: ClusterIP
+  port: 8080
   adminName: kotosiro
   adminEmail: kotosiro@email.com
   adminPassword: PASSWORD
@@ -54,26 +55,7 @@ db:
 
 
 
-# Default values for sharing.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
 
-replicaCount: 1
-
-image:
-  repository: nginx
-  pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
-
-imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
-
-podAnnotations: {}
-
-podSecurityContext: {}
-  # fsGroup: 2000
 
 securityContext: {}
   # capabilities:
@@ -82,10 +64,6 @@ securityContext: {}
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 1000
-
-service:
-  type: ClusterIP
-  port: 80
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
